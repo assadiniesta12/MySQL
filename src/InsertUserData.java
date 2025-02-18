@@ -5,18 +5,14 @@ public class InsertUserData {
     
     // Function to connect to the database
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/user_management",
-                "root",
-                "London12@" // Change to your MySQL password
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/user_management", "root", "London12@" // Change to your MySQL password
         );
     }
     
     // Function to check if email already exists
     public static boolean emailExists(String email) {
         String query = "SELECT COUNT(*) FROM users WHERE email = ?";
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -41,8 +37,7 @@ public class InsertUserData {
         
         // Insert data if email is unique
         String query = "INSERT INTO users (name, surename, email) VALUES (?, ?, ?)";
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, surename);
